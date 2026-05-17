@@ -39,7 +39,9 @@ const AMAZON_TLD: Record<string, string> = {
 
 function amazon(t: string, r: string) {
   const tld = AMAZON_TLD[r] ?? "com"
-  return `https://www.amazon.${tld}/s?k=${enc(t)}&i=instant-video`
+  const tag = process.env.AMAZON_AFFILIATE_TAG
+  const tagParam = tag ? `&tag=${tag}` : ""
+  return `https://www.amazon.${tld}/s?k=${enc(t)}&i=instant-video${tagParam}`
 }
 
 /** Only providers with proven, stable, public search URLs go here. */

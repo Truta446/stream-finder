@@ -19,6 +19,7 @@ import { useUrlState } from "@/hooks/use-url-state"
 import { titleDetailsApi } from "@/lib/api/client"
 import { POPULAR_PLATFORMS, isSupportedRegion, resolveTmdbProviderIds, type Title } from "@/lib/api/types"
 import { Button } from "@/components/ui/button"
+import { AdUnit } from "@/components/ui/ad-unit"
 import { toast } from "sonner"
 
 function StreamFinderInner() {
@@ -350,15 +351,29 @@ function StreamFinderInner() {
                 ) : (
                   <>
                     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
-                      {popular.map((title, i) => (
-                        <MovieCard
-                          key={title.id}
-                          title={title}
-                          priority={i < 5}
-                          onClick={() => setSelectedTitleId(title.id)}
-                          onHover={() => prefetchTitle(title.id)}
-                        />
-                      ))}
+                      {popular.flatMap((title, i) => {
+                        const card = (
+                          <MovieCard
+                            key={title.id}
+                            title={title}
+                            priority={i < 5}
+                            onClick={() => setSelectedTitleId(title.id)}
+                            onHover={() => prefetchTitle(title.id)}
+                          />
+                        )
+                        if (i === 10) {
+                          return [
+                            <div key="ad-popular" className="col-span-full py-1">
+                              <AdUnit
+                                slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_POPULAR ?? ""}
+                                format="horizontal"
+                              />
+                            </div>,
+                            card,
+                          ]
+                        }
+                        return [card]
+                      })}
                     </div>
                     <div className="flex flex-col items-center gap-2 mt-8">
                       {popularQ.hasNextPage ? (
@@ -461,6 +476,12 @@ function StreamFinderInner() {
           </section>
         )}
       </main>
+
+      <AdUnit
+        slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_FOOTER ?? ""}
+        format="horizontal"
+        className="container mx-auto px-4 py-4"
+      />
 
       <footer className="py-8 border-t border-border/50">
         <div className="container mx-auto px-4 text-center">
