@@ -32,6 +32,7 @@
     "errorTitle": "Não foi possível carregar os títulos populares"
   },
   "details": {
+    "whereToWatch": "Onde assistir",
     "loadingDetails": "Carregando detalhes...",
     "whereToWatch": "Onde assistir em {region}",
     "checkingAvailability": "Verificando disponibilidade...",

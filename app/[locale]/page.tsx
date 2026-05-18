@@ -2,12 +2,10 @@
 
 import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { Play, X } from "lucide-react"
-import { useQueryClient } from "@tanstack/react-query"
 import { useTranslations } from "next-intl"
 import { SearchBar } from "@/components/stream-finder/search-bar"
 import { RegionSelector } from "@/components/stream-finder/region-selector"
 import { MovieCard } from "@/components/stream-finder/movie-card"
-import { TitleDetails } from "@/components/stream-finder/title-details"
 import { LoadingSkeleton } from "@/components/stream-finder/loading-skeleton"
 import { EmptyState } from "@/components/stream-finder/empty-state"
 import { PlatformBadges } from "@/components/stream-finder/platform-badges"
@@ -16,9 +14,8 @@ import { SortMenu, type SortKey } from "@/components/stream-finder/sort-menu"
 import { AdUnit } from "@/components/ui/ad-unit"
 import { useDebouncedValue } from "@/hooks/use-debounce"
 import { useRegion } from "@/hooks/use-region"
-import { MIN_QUERY_LENGTH, usePopularTitles, useSearchTitles, useTitleDetails } from "@/hooks/use-titles"
+import { MIN_QUERY_LENGTH, usePopularTitles, useSearchTitles } from "@/hooks/use-titles"
 import { useUrlState } from "@/hooks/use-url-state"
-import { titleDetailsApi } from "@/lib/api/client"
 import { POPULAR_PLATFORMS, isSupportedRegion, resolveTmdbProviderIds, type Title } from "@/lib/api/types"
 import { Button } from "@/components/ui/button"
 import { toast } from "sonner"
@@ -26,7 +23,6 @@ import { toast } from "sonner"
 function StreamFinderInner() {
   const t = useTranslations()
   const url = useUrlState()
-  const queryClient = useQueryClient()
 
   const [searchQuery, setSearchQueryState] = useState(url.q)
   useEffect(() => {
@@ -65,12 +61,6 @@ function StreamFinderInner() {
     ? (url.sort as SortKey)
     : "popularity"
   const setSort = useCallback((s: SortKey) => url.write({ sort: s }), [url])
-
-  const selectedTitleId = url.id
-  const setSelectedTitleId = useCallback(
-    (id: string | null) => url.write({ id }, true),
-    [url],
-  )
 
   const providerIds = useMemo(
     () => resolveTmdbProviderIds([...selectedPlatforms]),
@@ -210,30 +200,6 @@ function StreamFinderInner() {
     return () => document.removeEventListener("keydown", onKey)
   }, [searchQuery, url])
 
-  const detailsQ = useTitleDetails(selectedTitleId)
-
-  const previewTitle = useMemo<Title | null>(() => {
-    if (!selectedTitleId) return null
-    return (
-      results.find((item) => item.id === selectedTitleId) ??
-      popular.find((item) => item.id === selectedTitleId) ??
-      null
-    )
-  }, [selectedTitleId, results, popular])
-
-  const selectedTitle: Title | null = detailsQ.data?.data ?? previewTitle
-
-  const prefetchTitle = useCallback(
-    (id: string) => {
-      queryClient.prefetchQuery({
-        queryKey: ["title", id],
-        queryFn: ({ signal }) => titleDetailsApi(id, signal),
-        staleTime: 1000 * 60 * 30,
-      })
-    },
-    [queryClient],
-  )
-
   const platformsLabel = useMemo(
     () =>
       [...selectedPlatforms]
@@ -349,8 +315,6 @@ function StreamFinderInner() {
                             key={title.id}
                             title={title}
                             priority={i < 5}
-                            onClick={() => setSelectedTitleId(title.id)}
-                            onHover={() => prefetchTitle(title.id)}
                           />
                         )
                         if (i === 10) {
@@ -462,8 +426,6 @@ function StreamFinderInner() {
                       key={title.id}
                       title={title}
                       priority={i < 5}
-                      onClick={() => setSelectedTitleId(title.id)}
-                      onHover={() => prefetchTitle(title.id)}
                     />
                   ))}
                 </div>
@@ -488,14 +450,6 @@ function StreamFinderInner() {
         </div>
       </footer>
 
-      {selectedTitle && (
-        <TitleDetails
-          title={selectedTitle}
-          region={region}
-          isLoading={detailsQ.isFetching && !detailsQ.data}
-          onClose={() => setSelectedTitleId(null)}
-        />
-      )}
     </div>
   )
 }

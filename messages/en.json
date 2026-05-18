@@ -32,6 +32,7 @@
     "errorTitle": "Couldn't load popular titles"
   },
   "details": {
+    "whereToWatch": "Where to watch",
     "loadingDetails": "Loading details...",
     "whereToWatch": "Where to watch in {region}",
     "checkingAvailability": "Checking streaming availability...",
