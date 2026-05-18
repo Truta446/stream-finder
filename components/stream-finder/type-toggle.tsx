@@ -1,5 +1,6 @@
 "use client"
 
+import { useTranslations } from "next-intl"
 import { cn } from "@/lib/utils"
 
 export type MediaType = "all" | "movie" | "tv"
@@ -10,23 +11,24 @@ interface TypeToggleProps {
   className?: string
 }
 
-const OPTIONS: Array<{ value: MediaType; label: string }> = [
-  { value: "all", label: "All" },
-  { value: "movie", label: "Movies" },
-  { value: "tv", label: "TV" },
-]
-
 export function TypeToggle({ value, onChange, className }: TypeToggleProps) {
+  const t = useTranslations("filters")
+  const options: Array<{ value: MediaType; label: string }> = [
+    { value: "all", label: t("all") },
+    { value: "movie", label: t("movies") },
+    { value: "tv", label: t("tv") },
+  ]
+
   return (
     <div
       role="radiogroup"
-      aria-label="Filter by media type"
+      aria-label={t("mediaType")}
       className={cn(
         "inline-flex items-center rounded-full border border-border/50 bg-secondary/40 p-0.5 text-sm",
         className,
       )}
     >
-      {OPTIONS.map((opt) => {
+      {options.map((opt) => {
         const selected = value === opt.value
         return (
           <button

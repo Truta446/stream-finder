@@ -1,0 +1,83 @@
+{
+  "meta": {
+    "title": "StreamFinder — Find where to watch any movie or TV show",
+    "description": "Search across Netflix, Prime Video, Disney+, Max, Apple TV+, Paramount+ and more. StreamFinder shows you exactly where any movie or TV show is available to stream, rent or buy in your country."
+  },
+  "hero": {
+    "title": "Find where to watch any movie or show",
+    "subtitle": "Search across streaming platforms and discover where your favorite titles are available.",
+    "keyboardHintPre": "Press",
+    "keyboardHintPost": "anytime to focus the search"
+  },
+  "search": {
+    "placeholder": "Search for movies or TV shows...",
+    "keepTyping": "Keep typing...",
+    "minChars": "Type at least {min} characters to search.",
+    "searching": "Searching...",
+    "resultsFor": "Results for \"{query}\"",
+    "titlesFound": "{count, plural, one {# title found} other {# titles found}}",
+    "on": "on {platforms}",
+    "failed": "Search failed",
+    "retry": "Retry"
+  },
+  "popular": {
+    "title": "Popular titles",
+    "titleFiltered": "Popular on {platforms}",
+    "loadMore": "Load more",
+    "loadingMore": "Loading...",
+    "endOfResults": "End of results",
+    "showing": "Showing {count, plural, one {# title} other {# titles}}",
+    "via": "via {source}",
+    "clearFilter": "Clear filter",
+    "errorTitle": "Couldn't load popular titles"
+  },
+  "details": {
+    "loadingDetails": "Loading details...",
+    "whereToWatch": "Where to watch in {region}",
+    "checkingAvailability": "Checking streaming availability...",
+    "loadingAvailability": "Loading streaming availability",
+    "noData": "No streaming data for this region",
+    "noDataDesc": "Our sources don't list a provider for {region}. It may still be available — try switching the country selector, or search a directory:",
+    "searchOnJustWatch": "Search \"{title}\" on JustWatch",
+    "close": "Close details",
+    "watchNow": "Watch now",
+    "watchTrailer": "Watch trailer",
+    "noDescription": "No description available.",
+    "seasons": "{count, plural, one {# Season} other {# Seasons}}",
+    "movie": "Movie",
+    "tvShow": "TV Show"
+  },
+  "providers": {
+    "subscription": "Subscription",
+    "rent": "Rent",
+    "buy": "Buy",
+    "free": "Free with ads"
+  },
+  "filters": {
+    "all": "All",
+    "movies": "Movies",
+    "tv": "TV",
+    "sort": "Sort",
+    "sortBy": "Sort by {label}",
+    "popularity": "Popularity",
+    "rating": "Rating",
+    "year": "Year",
+    "titleAZ": "Title A-Z",
+    "filterByProvider": "Filter by streaming provider",
+    "filterBy": "Filter by {name}",
+    "mediaType": "Filter by media type"
+  },
+  "empty": {
+    "searchTitle": "Start your search",
+    "searchDesc": "Type a movie or TV show name to find where to watch it",
+    "noResultsTitle": "No results found",
+    "noResultsDesc": "We couldn't find anything matching \"{query}\"",
+    "noResultsDescGeneric": "Try searching for something else",
+    "noAvailabilityTitle": "No availability in this region",
+    "noAvailabilityDesc": "This title may not be available for streaming in your selected country"
+  },
+  "footer": {
+    "tagline": "StreamFinder helps you find where to stream movies and TV shows.",
+    "attribution": "Data from TMDB, JustWatch and OMDb. This product uses these APIs but is not endorsed or certified by them."
+  }
+}

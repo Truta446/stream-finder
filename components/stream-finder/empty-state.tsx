@@ -1,4 +1,7 @@
+"use client"
+
 import { Search, Film } from "lucide-react"
+import { useTranslations } from "next-intl"
 import { cn } from "@/lib/utils"
 
 interface EmptyStateProps {
@@ -8,23 +11,23 @@ interface EmptyStateProps {
 }
 
 export function EmptyState({ type, query, className }: EmptyStateProps) {
+  const t = useTranslations("empty")
+
   const content = {
     "no-search": {
       icon: Search,
-      title: "Start your search",
-      description: "Type a movie or TV show name to find where to watch it",
+      title: t("searchTitle"),
+      description: t("searchDesc"),
     },
     "no-results": {
       icon: Film,
-      title: "No results found",
-      description: query
-        ? `We couldn't find anything matching "${query}"`
-        : "Try searching for something else",
+      title: t("noResultsTitle"),
+      description: query ? t("noResultsDesc", { query }) : t("noResultsDescGeneric"),
     },
     "no-availability": {
       icon: Film,
-      title: "No availability in this region",
-      description: "This title may not be available for streaming in your selected country",
+      title: t("noAvailabilityTitle"),
+      description: t("noAvailabilityDesc"),
     },
   }
 
@@ -34,7 +37,7 @@ export function EmptyState({ type, query, className }: EmptyStateProps) {
     <div
       className={cn(
         "flex flex-col items-center justify-center py-16 px-4 text-center",
-        className
+        className,
       )}
     >
       <div className="bg-secondary/50 rounded-full p-6 mb-6">

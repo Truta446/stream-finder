@@ -1,0 +1,83 @@
+{
+  "meta": {
+    "title": "StreamFinder — Encuentra dónde ver cualquier película o serie",
+    "description": "Busca en Netflix, Prime Video, Disney+, Max, Apple TV+, Paramount+ y más. StreamFinder te muestra exactamente dónde está disponible cualquier película o serie para ver, alquilar o comprar en tu país."
+  },
+  "hero": {
+    "title": "Encuentra dónde ver cualquier película o serie",
+    "subtitle": "Busca en todas las plataformas de streaming y descubre dónde están disponibles tus títulos favoritos.",
+    "keyboardHintPre": "Pulsa",
+    "keyboardHintPost": "en cualquier momento para buscar"
+  },
+  "search": {
+    "placeholder": "Buscar películas o series...",
+    "keepTyping": "Sigue escribiendo...",
+    "minChars": "Escribe al menos {min} caracteres para buscar.",
+    "searching": "Buscando...",
+    "resultsFor": "Resultados para \"{query}\"",
+    "titlesFound": "{count, plural, one {# título encontrado} other {# títulos encontrados}}",
+    "on": "en {platforms}",
+    "failed": "Error en la búsqueda",
+    "retry": "Reintentar"
+  },
+  "popular": {
+    "title": "Títulos populares",
+    "titleFiltered": "Popular en {platforms}",
+    "loadMore": "Cargar más",
+    "loadingMore": "Cargando...",
+    "endOfResults": "Fin de los resultados",
+    "showing": "Mostrando {count, plural, one {# título} other {# títulos}}",
+    "via": "vía {source}",
+    "clearFilter": "Limpiar filtro",
+    "errorTitle": "No se pudieron cargar los títulos populares"
+  },
+  "details": {
+    "loadingDetails": "Cargando detalles...",
+    "whereToWatch": "Dónde ver en {region}",
+    "checkingAvailability": "Comprobando disponibilidad...",
+    "loadingAvailability": "Cargando disponibilidad en streaming",
+    "noData": "Sin datos de streaming para esta región",
+    "noDataDesc": "Nuestras fuentes no listan un proveedor para {region}. Puede que aún esté disponible — intenta cambiar el país o busca en un directorio:",
+    "searchOnJustWatch": "Buscar \"{title}\" en JustWatch",
+    "close": "Cerrar detalles",
+    "watchNow": "Ver ahora",
+    "watchTrailer": "Ver tráiler",
+    "noDescription": "Sin descripción disponible.",
+    "seasons": "{count, plural, one {# Temporada} other {# Temporadas}}",
+    "movie": "Película",
+    "tvShow": "Serie"
+  },
+  "providers": {
+    "subscription": "Suscripción",
+    "rent": "Alquilar",
+    "buy": "Comprar",
+    "free": "Gratis con anuncios"
+  },
+  "filters": {
+    "all": "Todo",
+    "movies": "Películas",
+    "tv": "Series",
+    "sort": "Ordenar",
+    "sortBy": "Ordenar por {label}",
+    "popularity": "Popularidad",
+    "rating": "Valoración",
+    "year": "Año",
+    "titleAZ": "Título A-Z",
+    "filterByProvider": "Filtrar por plataforma",
+    "filterBy": "Filtrar por {name}",
+    "mediaType": "Filtrar por tipo de contenido"
+  },
+  "empty": {
+    "searchTitle": "Comienza tu búsqueda",
+    "searchDesc": "Escribe el nombre de una película o serie para encontrar dónde verla",
+    "noResultsTitle": "Sin resultados",
+    "noResultsDesc": "No encontramos nada que coincida con \"{query}\"",
+    "noResultsDescGeneric": "Intenta buscar otra cosa",
+    "noAvailabilityTitle": "Sin disponibilidad en esta región",
+    "noAvailabilityDesc": "Este título puede no estar disponible para streaming en tu país seleccionado"
+  },
+  "footer": {
+    "tagline": "StreamFinder te ayuda a encontrar dónde ver películas y series en streaming.",
+    "attribution": "Datos de TMDB, JustWatch y OMDb. Este producto usa estas APIs pero no está avalado ni certificado por ellas."
+  }
+}
