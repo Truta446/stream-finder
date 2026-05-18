@@ -17,6 +17,7 @@ import { useRegion } from "@/hooks/use-region"
 import { MIN_QUERY_LENGTH, usePopularTitles, useSearchTitles } from "@/hooks/use-titles"
 import { useUrlState } from "@/hooks/use-url-state"
 import { POPULAR_PLATFORMS, isSupportedRegion, resolveTmdbProviderIds, type Title } from "@/lib/api/types"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { toast } from "sonner"
 
@@ -447,10 +448,23 @@ function StreamFinderInner() {
         <div className="container mx-auto px-4 text-center">
           <p className="text-sm text-muted-foreground">{t("footer.tagline")}</p>
           <p className="text-xs text-muted-foreground/70 mt-2">{t("footer.attribution")}</p>
+          <nav className="mt-4 flex items-center justify-center gap-5 flex-wrap">
+            <FooterLink href="/privacy-policy" label="Privacy Policy" />
+            <FooterLink href="/terms" label="Terms of Use" />
+            <FooterLink href="/contact" label="Contact" />
+          </nav>
         </div>
       </footer>
 
     </div>
+  )
+}
+
+function FooterLink({ href, label }: { href: string; label: string }) {
+  return (
+    <Link href={href} className="text-xs text-muted-foreground/60 hover:text-muted-foreground transition-colors">
+      {label}
+    </Link>
   )
 }
 
