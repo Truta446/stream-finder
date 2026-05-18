@@ -37,6 +37,12 @@ const AMAZON_TLD: Record<string, string> = {
   RU: "com", // no Amazon.ru — fall back to global
 }
 
+function appleTV(t: string) {
+  const at = process.env.APPLE_AFFILIATE_TOKEN
+  const atParam = at ? `&at=${at}` : ""
+  return `https://tv.apple.com/search?term=${enc(t)}${atParam}`
+}
+
 function amazon(t: string, r: string) {
   const tld = AMAZON_TLD[r] ?? "com"
   const tag = process.env.AMAZON_AFFILIATE_TAG
@@ -54,9 +60,9 @@ const builders: Record<string, LinkBuilder> = {
 
   hulu: (t) => `https://www.hulu.com/search?q=${enc(t)}`,
 
-  "apple tv": (t) => `https://tv.apple.com/search?term=${enc(t)}`,
-  "apple tv+": (t) => `https://tv.apple.com/search?term=${enc(t)}`,
-  "apple tv plus": (t) => `https://tv.apple.com/search?term=${enc(t)}`,
+  "apple tv": (t) => appleTV(t),
+  "apple tv+": (t) => appleTV(t),
+  "apple tv plus": (t) => appleTV(t),
 
   peacock: (t) => `https://www.peacocktv.com/search?q=${enc(t)}`,
   "peacock premium": (t) => `https://www.peacocktv.com/search?q=${enc(t)}`,
