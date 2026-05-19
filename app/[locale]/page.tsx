@@ -12,6 +12,7 @@ import { PlatformBadges } from "@/components/stream-finder/platform-badges"
 import { TypeToggle, type MediaType } from "@/components/stream-finder/type-toggle"
 import { SortMenu, type SortKey } from "@/components/stream-finder/sort-menu"
 import { AdUnit } from "@/components/ui/ad-unit"
+import { DonateButton } from "@/components/stream-finder/donate-button"
 import { useDebouncedValue } from "@/hooks/use-debounce"
 import { useRegion } from "@/hooks/use-region"
 import { MIN_QUERY_LENGTH, usePopularTitles, useSearchTitles } from "@/hooks/use-titles"
@@ -21,7 +22,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { toast } from "sonner"
 
-function StreamFinderInner() {
+function ReelHuntrInner() {
   const t = useTranslations()
   const url = useUrlState()
 
@@ -214,11 +215,11 @@ function StreamFinderInner() {
     <div className="min-h-screen bg-background flex flex-col">
       <header className="sticky top-0 z-40 bg-background/95 backdrop-blur-md border-b border-border/50">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between gap-2 sm:gap-4">
-          <a href="/" className="flex items-center gap-2 shrink-0" aria-label="StreamFinder home">
+          <a href="/" className="flex items-center gap-2 shrink-0" aria-label="ReelHuntr home">
             <div className="bg-primary rounded-lg p-1.5">
               <Play className="h-5 w-5 text-primary-foreground fill-primary-foreground" aria-hidden />
             </div>
-            <span className="font-bold text-lg text-foreground hidden sm:inline">StreamFinder</span>
+            <span className="font-bold text-lg text-foreground hidden sm:inline">ReelHuntr</span>
           </a>
 
           {showResults && (
@@ -452,6 +453,7 @@ function StreamFinderInner() {
             <FooterLink href="/privacy-policy" label="Privacy Policy" />
             <FooterLink href="/terms" label="Terms of Use" />
             <FooterLink href="/contact" label="Contact" />
+            <DonateButton />
           </nav>
         </div>
       </footer>
@@ -468,10 +470,10 @@ function FooterLink({ href, label }: { href: string; label: string }) {
   )
 }
 
-export default function StreamFinderPage() {
+export default function ReelHuntrPage() {
   return (
     <Suspense fallback={null}>
-      <StreamFinderInner />
+      <ReelHuntrInner />
     </Suspense>
   )
 }

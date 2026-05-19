@@ -18,7 +18,7 @@ export function LegalLayout({ title, lastUpdated, locale, children }: LegalLayou
           className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors mb-8"
         >
           <ChevronLeft className="h-4 w-4" />
-          StreamFinder
+          ReelHuntr
         </Link>
         <article className="prose prose-invert prose-sm max-w-none">
           <h1 className="text-3xl font-bold text-foreground mb-2">{title}</h1>

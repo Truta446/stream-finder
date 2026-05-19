@@ -2,8 +2,8 @@ import type { Metadata } from "next"
 import { Mail, ExternalLink } from "lucide-react"
 import { LegalLayout } from "@/components/stream-finder/legal-layout"
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://stream-finder-navy.vercel.app"
-const CONTACT_EMAIL = "contact@streamfinder.app"
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://reelhuntr.com"
+const CONTACT_EMAIL = "contact@reelhuntr.com"
 
 export async function generateMetadata({
   params,
@@ -13,9 +13,9 @@ export async function generateMetadata({
   const { locale } = await params
   const canonical = locale === "en" ? "/contact" : `/${locale}/contact`
   return {
-    title: "Contact · StreamFinder",
+    title: "Contact · ReelHuntr",
     description:
-      "Get in touch with StreamFinder. Report a bug, suggest a feature, or ask about advertising and partnerships.",
+      "Get in touch with ReelHuntr. Report a bug, suggest a feature, or ask about advertising and partnerships.",
     alternates: {
       canonical,
       languages: {
@@ -29,8 +29,8 @@ export async function generateMetadata({
     openGraph: {
       type: "website",
       url: `${SITE_URL}${canonical}`,
-      title: "Contact · StreamFinder",
-      description: "Get in touch with the StreamFinder team.",
+      title: "Contact · ReelHuntr",
+      description: "Get in touch with the ReelHuntr team.",
     },
   }
 }
@@ -46,7 +46,7 @@ export default async function ContactPage({
       <div className="text-muted-foreground space-y-10">
         <Section title="Get in touch">
           <p>
-            StreamFinder is an independent project. There is no large support team behind it, but
+            ReelHuntr is an independent project. There is no large support team behind it, but
             we read every message and do our best to respond within a few business days.
           </p>
           <ContactCard
@@ -68,21 +68,21 @@ export default async function ContactPage({
           />
           <TopicCard
             title="Feature suggestions"
-            description="Have an idea that would make StreamFinder more useful? We'd love to hear it."
+            description="Have an idea that would make ReelHuntr more useful? We'd love to hear it."
           />
           <TopicCard
             title="Advertising & partnerships"
-            description="Interested in advertising on StreamFinder or partnering with us? Reach out with details about your platform or product."
+            description="Interested in advertising on ReelHuntr or partnering with us? Reach out with details about your platform or product."
           />
           <TopicCard
             title="Copyright / DMCA"
-            description="StreamFinder does not host any content. All data is sourced from TMDB and JustWatch APIs. If you believe there is a data error involving your work, please contact us with specifics."
+            description="ReelHuntr does not host any content. All data is sourced from TMDB and JustWatch APIs. If you believe there is a data error involving your work, please contact us with specifics."
           />
         </Section>
 
-        <Section title="About StreamFinder">
+        <Section title="About ReelHuntr">
           <p>
-            StreamFinder is a <strong className="text-foreground">legal streaming search engine</strong>.
+            ReelHuntr is a <strong className="text-foreground">legal streaming search engine</strong>.
             We help users find where to watch movies and TV shows on licensed platforms like
             Netflix, Amazon Prime Video, Disney+, Max, Apple TV+, and others. We do not link to,
             promote, or endorse any form of piracy or copyright infringement.

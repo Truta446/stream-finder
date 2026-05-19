@@ -1,8 +1,8 @@
-# StreamFinder
+# ReelHuntr
 
 Find where to watch movies and TV shows across every streaming platform, in 14 countries.
 
-**Live:** [stream-finder-navy.vercel.app](https://stream-finder-navy.vercel.app)
+**Live:** [reelhuntr.com](https://reelhuntr.com)
 
 ---
 

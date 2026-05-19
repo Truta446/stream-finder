@@ -2,8 +2,8 @@ import type { MetadataRoute } from "next"
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "StreamFinder",
-    short_name: "StreamFinder",
+    name: "ReelHuntr",
+    short_name: "ReelHuntr",
     description: "Find where to watch any movie or TV show across streaming platforms.",
     start_url: "/",
     display: "standalone",

@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next"
 import { routing } from "@/i18n/routing"
 import { buildTitleUrl } from "@/lib/utils/slug"
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://stream-finder-navy.vercel.app"
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://reelhuntr.com"
 const TMDB_BASE = "https://api.themoviedb.org/3"
 
 export const revalidate = 86400

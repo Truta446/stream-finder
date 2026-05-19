@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og"
 
 export const runtime = "edge"
-export const alt = "StreamFinder — find where to watch any movie or TV show"
+export const alt = "ReelHuntr — find where to watch any movie or TV show"
 export const size = { width: 1200, height: 630 }
 export const contentType = "image/png"
 
@@ -44,7 +44,7 @@ export default function OG() {
           >
             ▶
           </div>
-          <div style={{ fontSize: 64, fontWeight: 800, letterSpacing: -1 }}>StreamFinder</div>
+          <div style={{ fontSize: 64, fontWeight: 800, letterSpacing: -1 }}>ReelHuntr</div>
         </div>
         <div
           style={{

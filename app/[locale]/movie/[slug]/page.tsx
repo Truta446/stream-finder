@@ -25,12 +25,12 @@ export async function generateMetadata({
   const title = result?.data
   if (!title) return {}
 
-  const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://stream-finder-navy.vercel.app"
+  const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://reelhuntr.com"
   const localePrefix = locale === "en" ? "" : `/${locale}`
   const canonical = `${SITE_URL}${localePrefix}/movie/${slug}`
 
   return {
-    title: `${title.title} (${title.year}) — StreamFinder`,
+    title: `${title.title} (${title.year}) — ReelHuntr`,
     description: title.description || `Find where to watch ${title.title} online.`,
     alternates: {
       canonical,
@@ -78,7 +78,7 @@ export default async function MoviePage({
           className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-4"
         >
           <ArrowLeft className="h-4 w-4" />
-          StreamFinder
+          ReelHuntr
         </Link>
       </div>
 

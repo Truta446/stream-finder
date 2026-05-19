@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "StreamFinder — Find where to watch any movie or TV show",
-    "description": "Search across Netflix, Prime Video, Disney+, Max, Apple TV+, Paramount+ and more. StreamFinder shows you exactly where any movie or TV show is available to stream, rent or buy in your country."
+    "title": "ReelHuntr — Find where to watch any movie or TV show",
+    "description": "Search across Netflix, Prime Video, Disney+, Max, Apple TV+, Paramount+ and more. ReelHuntr shows you exactly where any movie or TV show is available to stream, rent or buy in your country."
   },
   "hero": {
     "title": "Find where to watch any movie or show",
@@ -78,7 +78,7 @@
     "noAvailabilityDesc": "This title may not be available for streaming in your selected country"
   },
   "footer": {
-    "tagline": "StreamFinder helps you find where to stream movies and TV shows.",
+    "tagline": "ReelHuntr helps you find where to stream movies and TV shows.",
     "attribution": "Data from TMDB, JustWatch and OMDb. This product uses these APIs but is not endorsed or certified by them."
   }
 }

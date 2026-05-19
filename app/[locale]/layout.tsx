@@ -12,8 +12,8 @@ import "../globals.css"
 const geist = Geist({ subsets: ["latin"], variable: "--font-geist", display: "swap" })
 const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono", display: "swap" })
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://stream-finder-navy.vercel.app"
-const SITE_NAME = "StreamFinder"
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://reelhuntr.com"
+const SITE_NAME = "ReelHuntr"
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))
@@ -87,7 +87,7 @@ export async function generateMetadata({
           url: "/opengraph-image",
           width: 1200,
           height: 630,
-          alt: "StreamFinder — find where to watch movies and TV shows",
+          alt: "ReelHuntr — find where to watch movies and TV shows",
         },
       ],
     },

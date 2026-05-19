@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import { LegalLayout } from "@/components/stream-finder/legal-layout"
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://stream-finder-navy.vercel.app"
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://reelhuntr.com"
 
 export async function generateMetadata({
   params,
@@ -11,9 +11,9 @@ export async function generateMetadata({
   const { locale } = await params
   const canonical = locale === "en" ? "/privacy-policy" : `/${locale}/privacy-policy`
   return {
-    title: "Privacy Policy · StreamFinder",
+    title: "Privacy Policy · ReelHuntr",
     description:
-      "Read StreamFinder's privacy policy. We respect your data and only use what's strictly necessary to operate the service.",
+      "Read ReelHuntr's privacy policy. We respect your data and only use what's strictly necessary to operate the service.",
     alternates: {
       canonical,
       languages: {
@@ -27,8 +27,8 @@ export async function generateMetadata({
     openGraph: {
       type: "website",
       url: `${SITE_URL}${canonical}`,
-      title: "Privacy Policy · StreamFinder",
-      description: "How StreamFinder handles your data.",
+      title: "Privacy Policy · ReelHuntr",
+      description: "How ReelHuntr handles your data.",
     },
   }
 }
@@ -43,7 +43,7 @@ export default async function PrivacyPolicyPage({
     <LegalLayout title="Privacy Policy" lastUpdated="May 18, 2025" locale={locale}>
       <Section title="1. Who We Are">
         <p>
-          StreamFinder (<strong>streamfinder</strong>, "we", "us", or "our") is a free streaming
+          ReelHuntr (<strong>streamfinder</strong>, "we", "us", or "our") is a free streaming
           search engine that helps users discover where to legally watch movies and TV shows across
           major streaming platforms. We are <strong>not</strong> a streaming service, and we do not
           host or distribute any copyrighted content.
@@ -57,7 +57,7 @@ export default async function PrivacyPolicyPage({
       <Section title="2. Information We Collect">
         <h3>2.1 Information you provide</h3>
         <p>
-          StreamFinder does not require registration or account creation. The only input we receive
+          ReelHuntr does not require registration or account creation. The only input we receive
           from you is the search queries you type in the search box. These queries are sent to our
           API to retrieve results and are <strong>not stored</strong> on our servers beyond the
           duration of the request.
@@ -101,7 +101,7 @@ export default async function PrivacyPolicyPage({
 
       <Section title="4. Advertising (Google AdSense)">
         <p>
-          StreamFinder displays advertisements served by{" "}
+          ReelHuntr displays advertisements served by{" "}
           <strong>Google AdSense</strong> (publisher ID: ca-pub-4688228012616163). Google uses
           cookies and similar technologies to serve ads based on your visits to this and other
           websites. You can opt out of personalised advertising at{" "}
@@ -119,7 +119,7 @@ export default async function PrivacyPolicyPage({
       </Section>
 
       <Section title="5. Third-Party Services">
-        <p>StreamFinder retrieves data from the following third-party APIs:</p>
+        <p>ReelHuntr retrieves data from the following third-party APIs:</p>
         <ul>
           <li>
             <strong>TMDB (The Movie Database)</strong> — movie and TV metadata. Uses are governed
@@ -166,7 +166,7 @@ export default async function PrivacyPolicyPage({
 
       <Section title="8. Children's Privacy">
         <p>
-          StreamFinder is not directed at children under the age of 13. We do not knowingly
+          ReelHuntr is not directed at children under the age of 13. We do not knowingly
           collect personal information from children.
         </p>
       </Section>
