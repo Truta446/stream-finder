@@ -3,6 +3,17 @@ import type { Title } from "./types"
 
 const OMDB_BASE = "https://www.omdbapi.com"
 
+const ALLOWED_POSTER_HOSTS = new Set(["m.media-amazon.com", "media-amazon.com"])
+
+function isSafePosterUrl(url: string): boolean {
+  try {
+    const { protocol, hostname } = new URL(url)
+    return protocol === "https:" && ALLOWED_POSTER_HOSTS.has(hostname)
+  } catch {
+    return false
+  }
+}
+
 export function omdbAvailable() {
   return !!process.env.OMDB_API_KEY
 }
@@ -63,8 +74,8 @@ function detailToTitle(d: OmdbDetail): Title {
     title: d.Title,
     year: Number.isFinite(year) ? year : 0,
     type: mapType(d.Type),
-    poster: d.Poster && d.Poster !== "N/A" ? d.Poster : "/placeholder.jpg",
-    backdrop: d.Poster && d.Poster !== "N/A" ? d.Poster : "/placeholder.jpg",
+    poster: d.Poster && d.Poster !== "N/A" && isSafePosterUrl(d.Poster) ? d.Poster : "/placeholder.jpg",
+    backdrop: d.Poster && d.Poster !== "N/A" && isSafePosterUrl(d.Poster) ? d.Poster : "/placeholder.jpg",
     description: d.Plot && d.Plot !== "N/A" ? d.Plot : "",
     rating: Number.isFinite(rating) ? rating : 0,
     genres: (d.Genre || "").split(",").map((g) => g.trim()).filter(Boolean),
