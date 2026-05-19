@@ -43,5 +43,8 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!_next|_vercel|.*\\..*).*)", "/"],
+  matcher: [
+    "/((?!_next|_vercel|opengraph-image|apple-icon|icon\\.svg|manifest\\.webmanifest|robots\\.txt|sitemap\\.xml|ads\\.txt|.*\\..*).*)",
+    "/",
+  ],
 }
