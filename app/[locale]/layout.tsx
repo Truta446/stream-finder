@@ -153,6 +153,7 @@ export default async function LocaleLayout({
         <link rel="preconnect" href="https://image.tmdb.org" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://images.justwatch.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://api.themoviedb.org" />
+        <meta name="google-adsense-account" content="ca-pub-4688228012616163" />
         {process.env.NEXT_PUBLIC_ADSENSE_ID && (
           <Script
             src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_ID}`}
