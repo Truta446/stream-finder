@@ -17,7 +17,7 @@ export default function OG() {
           alignItems: "center",
           justifyContent: "center",
           background:
-            "radial-gradient(1200px 600px at 20% 0%, rgba(220,38,38,0.25), transparent), linear-gradient(180deg, #0a0a0a 0%, #111 100%)",
+            "radial-gradient(1200px 600px at 20% 0%, rgba(34,197,94,0.2), transparent), linear-gradient(180deg, #0a0a0a 0%, #111 100%)",
           color: "white",
           fontFamily: "sans-serif",
         }}
@@ -32,7 +32,7 @@ export default function OG() {
         >
           <div
             style={{
-              background: "#dc2626",
+              background: "#22c55e",
               borderRadius: 16,
               width: 80,
               height: 80,
