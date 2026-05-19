@@ -18,10 +18,12 @@ interface ProvidersSectionProps {
 export function ProvidersSection({ providers, titleText, initialRegion }: ProvidersSectionProps) {
   const t = useTranslations()
   const [storedRegion, persistRegion] = useRegion()
-  const [region, setRegion] = useState(initialRegion ?? storedRegion)
+  // localRegion holds an explicit user pick on this page; null means "follow localStorage"
+  const [localRegion, setLocalRegion] = useState<string | null>(initialRegion ?? null)
+  const region = localRegion ?? storedRegion
 
   const handleRegionChange = (code: string) => {
-    setRegion(code)
+    setLocalRegion(code)
     persistRegion(code)
   }
 
