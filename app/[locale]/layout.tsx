@@ -10,7 +10,7 @@ import { routing } from "@/i18n/routing"
 import "../globals.css"
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-geist", display: "swap" })
-const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono", display: "swap" })
+const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono", display: "swap", preload: false })
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://reelhuntr.com"
 const SITE_NAME = "ReelHuntr"
@@ -152,8 +152,15 @@ export default async function LocaleLayout({
       <head>
         <link rel="preconnect" href="https://image.tmdb.org" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://images.justwatch.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://api.themoviedb.org" />
+        <link rel="dns-prefetch" href="https://googleads.g.doubleclick.net" />
         <meta name="google-adsense-account" content="ca-pub-4688228012616163" />
+      </head>
+      <body className="font-sans antialiased bg-background min-h-screen" suppressHydrationWarning>
+        <Script id="ld-website" type="application/ld+json" strategy="afterInteractive">
+          {JSON.stringify(jsonLd)}
+        </Script>
         {process.env.NEXT_PUBLIC_ADSENSE_ID && (
           <Script
             src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_ID}`}
@@ -161,11 +168,6 @@ export default async function LocaleLayout({
             crossOrigin="anonymous"
           />
         )}
-      </head>
-      <body className="font-sans antialiased bg-background min-h-screen" suppressHydrationWarning>
-        <Script id="ld-website" type="application/ld+json" strategy="afterInteractive">
-          {JSON.stringify(jsonLd)}
-        </Script>
         <NextIntlClientProvider messages={messages}>
           <QueryProvider>{children}</QueryProvider>
         </NextIntlClientProvider>
