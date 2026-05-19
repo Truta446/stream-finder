@@ -3,7 +3,7 @@ import { Mail, ExternalLink } from "lucide-react"
 import { LegalLayout } from "@/components/stream-finder/legal-layout"
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://reelhuntr.com"
-const CONTACT_EMAIL = "contact@reelhuntr.com"
+const CONTACT_EMAIL = "victara.luna@gmail.com"
 
 export async function generateMetadata({
   params,
