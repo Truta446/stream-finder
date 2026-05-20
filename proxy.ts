@@ -22,7 +22,7 @@ function isRateLimited(ip: string): boolean {
   return false
 }
 
-export function middleware(req: NextRequest) {
+export function proxy(req: NextRequest) {
   // Only rate-limit the API routes
   if (req.nextUrl.pathname.startsWith("/api/")) {
     const ip =
