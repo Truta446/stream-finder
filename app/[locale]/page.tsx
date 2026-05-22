@@ -5,6 +5,7 @@ import { Play, X } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { SearchBar } from "@/components/stream-finder/search-bar"
 import { RegionSelector } from "@/components/stream-finder/region-selector"
+import { LanguageSelector } from "@/components/stream-finder/language-selector"
 import { MovieCard } from "@/components/stream-finder/movie-card"
 import { LoadingSkeleton } from "@/components/stream-finder/loading-skeleton"
 import { EmptyState } from "@/components/stream-finder/empty-state"
@@ -234,7 +235,10 @@ function ReelHuntrInner() {
             </div>
           )}
 
-          <RegionSelector value={region} onChange={setRegion} />
+          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+            <LanguageSelector />
+            <RegionSelector value={region} onChange={setRegion} />
+          </div>
         </div>
       </header>
 
@@ -449,10 +453,10 @@ function ReelHuntrInner() {
         <div className="container mx-auto px-4 text-center">
           <p className="text-sm text-muted-foreground">{t("footer.tagline")}</p>
           <p className="text-xs text-muted-foreground/70 mt-2">{t("footer.attribution")}</p>
-          <nav className="mt-4 flex items-center justify-center gap-5 flex-wrap">
-            <FooterLink href="/privacy-policy" label="Privacy Policy" />
-            <FooterLink href="/terms" label="Terms of Use" />
-            <FooterLink href="/contact" label="Contact" />
+          <nav className="mt-4 flex items-center justify-center gap-x-5 gap-y-2 flex-wrap">
+            <FooterLink href="/privacy-policy" label={t("footer.privacy")} />
+            <FooterLink href="/terms" label={t("footer.terms")} />
+            <FooterLink href="/contact" label={t("footer.contact")} />
             <DonateButton />
           </nav>
         </div>

@@ -8,6 +8,7 @@ import { parseSlugId } from "@/lib/utils/slug"
 import { Badge } from "@/components/ui/badge"
 import { PosterImage } from "@/components/ui/poster-image"
 import { ProvidersSection } from "@/components/stream-finder/providers-section"
+import { LanguageSelector } from "@/components/stream-finder/language-selector"
 
 type Params = Promise<{ locale: string; slug: string }>
 type SearchParams = Promise<{ region?: string }>
@@ -67,14 +68,15 @@ export default async function TvPage({
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 pt-4">
+      <div className="container mx-auto px-4 pt-4 flex items-center justify-between gap-2 mb-4">
         <Link
           href={`${localePrefix}/`}
-          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-4"
+          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
         >
           <ArrowLeft className="h-4 w-4" />
           ReelHuntr
         </Link>
+        <LanguageSelector />
       </div>
 
       <div className="relative h-48 sm:h-64 md:h-80 w-full bg-secondary/40">
