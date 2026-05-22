@@ -33,8 +33,8 @@
   },
   "details": {
     "whereToWatch": "Dónde ver",
+    "whereToWatchIn": "Dónde ver en {region}",
     "loadingDetails": "Cargando detalles...",
-    "whereToWatch": "Dónde ver en {region}",
     "checkingAvailability": "Comprobando disponibilidad...",
     "loadingAvailability": "Cargando disponibilidad en streaming",
     "noData": "Sin datos de streaming para esta región",
@@ -79,6 +79,15 @@
   },
   "footer": {
     "tagline": "ReelHuntr te ayuda a encontrar dónde ver películas y series en streaming.",
-    "attribution": "Datos de TMDB, JustWatch y OMDb. Este producto usa estas APIs pero no está avalado ni certificado por ellas."
+    "attribution": "Datos de TMDB, JustWatch y OMDb. Este producto usa estas APIs pero no está avalado ni certificado por ellas.",
+    "privacy": "Política de privacidad",
+    "terms": "Términos de uso",
+    "contact": "Contacto",
+    "support": "Apoyar a ReelHuntr"
+  },
+  "language": {
+    "label": "Idioma",
+    "change": "Cambiar idioma",
+    "current": "Idioma actual: {name}"
   }
 }

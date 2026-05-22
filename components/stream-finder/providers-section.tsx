@@ -43,7 +43,7 @@ export function ProvidersSection({ providers, titleText, initialRegion }: Provid
     <div>
       <div className="flex items-center justify-between gap-4 mb-6 flex-wrap">
         <h2 className="text-xl font-semibold text-foreground">
-          {t("details.whereToWatch", { region: `${selectedRegion?.flag} ${selectedRegion?.name}` })}
+          {t("details.whereToWatchIn", { region: `${selectedRegion?.flag} ${selectedRegion?.name}` })}
         </h2>
         <RegionSelector value={region} onChange={handleRegionChange} />
       </div>

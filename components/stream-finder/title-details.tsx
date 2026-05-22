@@ -178,7 +178,7 @@ export function TitleDetails({ title, region, isLoading, onClose }: TitleDetails
 
             <div className="mt-8">
               <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
-                {t("details.whereToWatch", { region: regionLabel })}
+                {t("details.whereToWatchIn", { region: regionLabel })}
               </h3>
 
               {isLoading ? (
