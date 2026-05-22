@@ -2,7 +2,7 @@
 
 import { useTransition } from "react"
 import { ChevronDown, Languages } from "lucide-react"
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import { useSearchParams } from "next/navigation"
 import { useLocale, useTranslations } from "next-intl"
 import { Button } from "@/components/ui/button"
 import {
@@ -12,6 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { routing } from "@/i18n/routing"
+import { usePathname, useRouter } from "@/i18n/navigation"
 
 type Locale = (typeof routing.locales)[number]
 
@@ -23,7 +24,7 @@ const LANGUAGES: { code: Locale; label: string; short: string }[] = [
 
 export function LanguageSelector() {
   const t = useTranslations("language")
-  const locale = useLocale()
+  const locale = useLocale() as Locale
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -34,22 +35,11 @@ export function LanguageSelector() {
   const switchTo = (next: Locale) => {
     if (next === locale) return
 
-    const otherLocales = routing.locales.filter((l) => l !== routing.defaultLocale)
-    const segments = pathname.split("/").filter(Boolean)
-    if (segments.length > 0 && (otherLocales as readonly string[]).includes(segments[0])) {
-      segments.shift()
-    }
-
-    const rest = segments.join("/")
-    const base = next === routing.defaultLocale ? "" : `/${next}`
-    const path = rest ? `${base}/${rest}` : base || "/"
-
     const qs = searchParams.toString()
-    const url = qs ? `${path}?${qs}` : path
+    const target = qs ? `${pathname}?${qs}` : pathname
 
     startTransition(() => {
-      router.replace(url, { scroll: false })
-      router.refresh()
+      router.replace(target, { locale: next, scroll: false })
     })
   }
 
