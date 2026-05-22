@@ -44,7 +44,7 @@ export function proxy(req: NextRequest) {
 
 export const config = {
   matcher: [
-    "/((?!_next|_vercel|opengraph-image|apple-icon|icon\\.svg|manifest\\.webmanifest|robots\\.txt|sitemap\\.xml|ads\\.txt|.*\\..*).*)",
+    "/((?!_next|_vercel|opengraph-image|apple-icon|icon\\.svg|icon-192|icon-512|manifest\\.webmanifest|robots\\.txt|sitemap\\.xml|ads\\.txt|.*\\..*).*)",
     "/",
   ],
 }
