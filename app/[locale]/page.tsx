@@ -454,6 +454,7 @@ function ReelHuntrInner() {
           <p className="text-sm text-muted-foreground">{t("footer.tagline")}</p>
           <p className="text-xs text-muted-foreground/70 mt-2">{t("footer.attribution")}</p>
           <nav className="mt-4 flex items-center justify-center gap-x-5 gap-y-2 flex-wrap">
+            <FooterLink href="/blog" label={t("footer.blog")} />
             <FooterLink href="/privacy-policy" label={t("footer.privacy")} />
             <FooterLink href="/terms" label={t("footer.terms")} />
             <FooterLink href="/contact" label={t("footer.contact")} />

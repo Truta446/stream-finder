@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next"
 import { routing } from "@/i18n/routing"
 import { buildTitleUrl } from "@/lib/utils/slug"
+import { posts } from "@/lib/blog"
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://reelhuntr.com"
 const TMDB_BASE = "https://api.themoviedb.org/3"
@@ -76,6 +77,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         changeFrequency: "monthly" as const,
         priority: 0.4,
       },
+      {
+        url: `${SITE_URL}${prefix}/blog`,
+        lastModified: now,
+        changeFrequency: "weekly" as const,
+        priority: 0.7,
+      },
+      ...posts.map((post) => ({
+        url: `${SITE_URL}${prefix}/blog/${post.slug}`,
+        lastModified: new Date(post.date),
+        changeFrequency: "monthly" as const,
+        priority: 0.6,
+      })),
     ]
   })
 
