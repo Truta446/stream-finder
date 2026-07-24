@@ -92,6 +92,15 @@ function ReelHuntrInner() {
   const isQueryLongEnough = rawTrimmed.length >= MIN_QUERY_LENGTH
   const hasSearched = trimmed.length >= MIN_QUERY_LENGTH
 
+  // Mirror the query into the URL only once typing settles (debounced), so
+  // links stay shareable without rewriting the URL on every keystroke. The
+  // input itself stays the source of truth while typing (see popstate sync
+  // above), which is what keeps fast typing from dropping characters.
+  useEffect(() => {
+    if (trimmed !== url.q) url.write({ q: debouncedQuery })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debouncedQuery])
+
   const searchQ = useSearchTitles(debouncedQuery, filterArgs)
   const popularQ = usePopularTitles(filterArgs)
 
@@ -174,7 +183,6 @@ function ReelHuntrInner() {
       pendingFocusRef.current = "hero"
     }
     setSearchQueryState(value)
-    url.write({ q: value })
   }
 
   useEffect(() => {
