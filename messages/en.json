@@ -1,4 +1,7 @@
 {
+  "a11y": {
+    "skipToContent": "Skip to content"
+  },
   "meta": {
     "title": "ReelHuntr — Find where to watch any movie or TV show",
     "description": "Search across Netflix, Prime Video, Disney+, Max, Apple TV+, Paramount+ and more. ReelHuntr shows you exactly where any movie or TV show is available to stream, rent or buy in your country."

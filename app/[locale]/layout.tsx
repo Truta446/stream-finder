@@ -122,6 +122,7 @@ export default async function LocaleLayout({
 }) {
   const { locale } = await params
   const messages = await getMessages()
+  const t = await getTranslations({ locale })
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -159,6 +160,12 @@ export default async function LocaleLayout({
         <meta name="google-adsense-account" content="ca-pub-4688228012616163" />
       </head>
       <body className="font-sans antialiased bg-background min-h-screen" suppressHydrationWarning>
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-primary-foreground focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-ring"
+        >
+          {t("a11y.skipToContent")}
+        </a>
         <Script id="ld-website" type="application/ld+json" strategy="afterInteractive">
           {JSON.stringify(jsonLd)}
         </Script>

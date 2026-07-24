@@ -72,7 +72,7 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
   const prefix = locale === "en" ? "" : `/${locale}`
 
   return (
-    <main className="min-h-screen bg-background">
+    <main id="main-content" tabIndex={-1} className="min-h-screen bg-background outline-none">
       <div className="max-w-4xl mx-auto px-4 py-16">
         <div className="mb-12">
           <Link

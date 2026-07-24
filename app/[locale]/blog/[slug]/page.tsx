@@ -40,6 +40,14 @@ export async function generateMetadata({
       title: t.title,
       description: t.description,
       publishedTime: post.date,
+      modifiedTime: post.date,
+      authors: ["ReelHuntr"],
+      section: post.category,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: t.title,
+      description: t.description,
     },
   }
 }
@@ -85,9 +93,41 @@ export default async function BlogPostPage({
 
   const t = getTranslation(post, locale)
   const prefix = locale === "en" ? "" : `/${locale}`
+  const canonical = `${SITE_URL}${prefix}/blog/${slug}`
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BlogPosting",
+        headline: t.title,
+        description: t.description,
+        datePublished: post.date,
+        dateModified: post.date,
+        inLanguage: locale,
+        articleSection: post.category,
+        author: { "@type": "Organization", name: "ReelHuntr", url: SITE_URL },
+        publisher: {
+          "@type": "Organization",
+          name: "ReelHuntr",
+          logo: { "@type": "ImageObject", url: `${SITE_URL}/icon.svg` },
+        },
+        mainEntityOfPage: { "@type": "WebPage", "@id": canonical },
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "ReelHuntr", item: `${SITE_URL}${prefix}/` },
+          { "@type": "ListItem", position: 2, name: "Blog", item: `${SITE_URL}${prefix}/blog` },
+          { "@type": "ListItem", position: 3, name: t.title, item: canonical },
+        ],
+      },
+    ],
+  }
 
   return (
-    <main className="min-h-screen bg-background">
+    <main id="main-content" tabIndex={-1} className="min-h-screen bg-background outline-none">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <div className="max-w-2xl mx-auto px-4 py-16">
         <Link
           href={`${prefix}/blog`}

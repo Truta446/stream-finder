@@ -19,7 +19,7 @@ import { useRegion } from "@/hooks/use-region"
 import { MIN_QUERY_LENGTH, usePopularTitles, useSearchTitles } from "@/hooks/use-titles"
 import { useUrlState } from "@/hooks/use-url-state"
 import { POPULAR_PLATFORMS, isSupportedRegion, resolveTmdbProviderIds, type Title } from "@/lib/api/types"
-import Link from "next/link"
+import { Link } from "@/i18n/navigation"
 import { Button } from "@/components/ui/button"
 import { toast } from "sonner"
 
@@ -216,12 +216,12 @@ function ReelHuntrInner() {
     <div className="min-h-screen bg-background flex flex-col">
       <header className="sticky top-0 z-40 bg-background/95 backdrop-blur-md border-b border-border/50">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between gap-2 sm:gap-4">
-          <a href="/" className="flex items-center gap-2 shrink-0" aria-label="ReelHuntr home">
+          <Link href="/" className="flex items-center gap-2 shrink-0" aria-label="ReelHuntr home">
             <div className="bg-primary rounded-lg p-1.5">
               <Play className="h-5 w-5 text-primary-foreground fill-primary-foreground" aria-hidden />
             </div>
             <span className="font-bold text-lg text-foreground hidden sm:inline">ReelHuntr</span>
-          </a>
+          </Link>
 
           {showResults && (
             <div className="flex-1 max-w-xl mx-1 sm:mx-4 min-w-0">
@@ -242,7 +242,7 @@ function ReelHuntrInner() {
         </div>
       </header>
 
-      <main className="flex-1">
+      <main id="main-content" tabIndex={-1} className="flex-1 outline-none">
         {!showResults && (
           <>
             <section className="relative py-12 sm:py-20 md:py-28" aria-labelledby="hero-title">

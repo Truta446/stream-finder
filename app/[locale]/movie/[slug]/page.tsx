@@ -43,6 +43,8 @@ export async function generateMetadata({
       },
     },
     openGraph: {
+      type: "video.movie",
+      url: canonical,
       title: `${title.title} (${title.year})`,
       description: title.description || `Find where to watch ${title.title} online.`,
       images: title.poster ? [{ url: title.poster, width: 500, height: 750, alt: title.title }] : [],
@@ -70,8 +72,33 @@ export default async function MoviePage({
   const t = await getTranslations({ locale })
   const localePrefix = locale === "en" ? "" : `/${locale}`
 
+  const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://reelhuntr.com"
+  const canonical = `${SITE_URL}${localePrefix}/movie/${slug}`
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Movie",
+        name: title.title,
+        url: canonical,
+        ...(title.poster ? { image: title.poster } : {}),
+        ...(title.description ? { description: title.description } : {}),
+        ...(title.year ? { datePublished: String(title.year) } : {}),
+        ...(title.genres.length > 0 ? { genre: title.genres } : {}),
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "ReelHuntr", item: `${SITE_URL}${localePrefix}/` },
+          { "@type": "ListItem", position: 2, name: title.title, item: canonical },
+        ],
+      },
+    ],
+  }
+
   return (
-    <div className="min-h-screen bg-background">
+    <main id="main-content" tabIndex={-1} className="min-h-screen bg-background outline-none">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       {/* Back navigation */}
       <div className="container mx-auto px-4 pt-4 flex items-center justify-between gap-2 mb-4">
         <Link
@@ -183,6 +210,6 @@ export default async function MoviePage({
           />
         </div>
       </div>
-    </div>
+    </main>
   )
 }
