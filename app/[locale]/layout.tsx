@@ -7,6 +7,7 @@ import { NextIntlClientProvider } from "next-intl"
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server"
 import { QueryProvider } from "@/components/providers/query-provider"
 import { Toaster } from "@/components/ui/sonner"
+import { ADS_ENABLED } from "@/lib/ads"
 import { routing } from "@/i18n/routing"
 import "../globals.css"
 
@@ -156,10 +157,14 @@ export default async function LocaleLayout({
       <head>
         <link rel="preconnect" href="https://image.tmdb.org" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://images.justwatch.com" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://api.themoviedb.org" />
-        <link rel="dns-prefetch" href="https://googleads.g.doubleclick.net" />
-        <meta name="google-adsense-account" content="ca-pub-4688228012616163" />
+        {ADS_ENABLED && (
+          <>
+            <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossOrigin="anonymous" />
+            <link rel="dns-prefetch" href="https://googleads.g.doubleclick.net" />
+            <meta name="google-adsense-account" content="ca-pub-4688228012616163" />
+          </>
+        )}
       </head>
       <body className="font-sans antialiased bg-background min-h-screen" suppressHydrationWarning>
         <a
@@ -171,7 +176,7 @@ export default async function LocaleLayout({
         <Script id="ld-website" type="application/ld+json" strategy="afterInteractive">
           {JSON.stringify(jsonLd)}
         </Script>
-        {process.env.NEXT_PUBLIC_ADSENSE_ID && (
+        {ADS_ENABLED && process.env.NEXT_PUBLIC_ADSENSE_ID && (
           <Script
             src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_ID}`}
             strategy="lazyOnload"

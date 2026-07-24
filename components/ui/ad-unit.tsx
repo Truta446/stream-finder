@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef } from "react"
+import { ADS_ENABLED } from "@/lib/ads"
 import { cn } from "@/lib/utils"
 
 declare global {
@@ -20,7 +21,7 @@ export function AdUnit({ slot, format = "auto", className }: AdUnitProps) {
   const pushed = useRef(false)
 
   useEffect(() => {
-    if (!publisherId || !slot || pushed.current) return
+    if (!ADS_ENABLED || !publisherId || !slot || pushed.current) return
     pushed.current = true
     try {
       ;(window.adsbygoogle = window.adsbygoogle || []).push({})
@@ -29,7 +30,7 @@ export function AdUnit({ slot, format = "auto", className }: AdUnitProps) {
     }
   }, [publisherId, slot])
 
-  if (!publisherId || !slot) return null
+  if (!ADS_ENABLED || !publisherId || !slot) return null
 
   return (
     <div className={cn("overflow-hidden text-center", className)}>
