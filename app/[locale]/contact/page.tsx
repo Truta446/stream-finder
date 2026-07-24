@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { Mail, ExternalLink } from "lucide-react"
+import { setRequestLocale } from "next-intl/server"
 import { LegalLayout } from "@/components/stream-finder/legal-layout"
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://reelhuntr.com"
@@ -41,6 +42,7 @@ export default async function ContactPage({
   params: Promise<{ locale: string }>
 }) {
   const { locale } = await params
+  setRequestLocale(locale)
   return (
     <LegalLayout title="Contact" lastUpdated="May 18, 2025" locale={locale}>
       <div className="text-muted-foreground space-y-10">

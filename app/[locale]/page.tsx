@@ -14,6 +14,7 @@ import { TypeToggle, type MediaType } from "@/components/stream-finder/type-togg
 import { SortMenu, type SortKey } from "@/components/stream-finder/sort-menu"
 import { AdUnit } from "@/components/ui/ad-unit"
 import { DonateButton } from "@/components/stream-finder/donate-button"
+import { HomeShell } from "@/components/stream-finder/home-shell"
 import { useDebouncedValue } from "@/hooks/use-debounce"
 import { useRegion } from "@/hooks/use-region"
 import { MIN_QUERY_LENGTH, usePopularTitles, useSearchTitles } from "@/hooks/use-titles"
@@ -28,10 +29,20 @@ function ReelHuntrInner() {
   const url = useUrlState()
 
   const [searchQuery, setSearchQueryState] = useState(url.q)
+  // The input is the source of truth while typing. We deliberately do NOT
+  // mirror url.q on every render: url.write() updates the URL asynchronously
+  // (rAF + router.replace), so during fast typing the URL lags behind the
+  // input — echoing a stale url.q back into state would drop freshly typed
+  // characters. We only re-read the URL on genuine external navigation
+  // (browser back/forward), which fires popstate.
   useEffect(() => {
-    if (url.q !== searchQuery) setSearchQueryState(url.q)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [url.q])
+    const syncFromUrl = () => {
+      const q = new URLSearchParams(window.location.search).get("q") ?? ""
+      setSearchQueryState(q)
+    }
+    window.addEventListener("popstate", syncFromUrl)
+    return () => window.removeEventListener("popstate", syncFromUrl)
+  }, [])
 
   const [storedRegion, persistRegion] = useRegion()
   const region = url.region && isSupportedRegion(url.region) ? url.region : storedRegion
@@ -477,7 +488,7 @@ function FooterLink({ href, label }: { href: string; label: string }) {
 
 export default function ReelHuntrPage() {
   return (
-    <Suspense fallback={null}>
+    <Suspense fallback={<HomeShell />}>
       <ReelHuntrInner />
     </Suspense>
   )

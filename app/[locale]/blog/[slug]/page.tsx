@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import Link from "next/link"
+import { setRequestLocale } from "next-intl/server"
 import { routing } from "@/i18n/routing"
 import { posts, getPost, getTranslation, formatDate } from "@/lib/blog"
 
@@ -88,6 +89,7 @@ export default async function BlogPostPage({
   params: Promise<{ locale: string; slug: string }>
 }) {
   const { locale, slug } = await params
+  setRequestLocale(locale)
   const post = getPost(slug)
   if (!post) notFound()
 

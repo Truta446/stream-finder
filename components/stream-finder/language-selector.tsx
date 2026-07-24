@@ -2,7 +2,6 @@
 
 import { useTransition } from "react"
 import { ChevronDown, Languages } from "lucide-react"
-import { useSearchParams } from "next/navigation"
 import { useLocale, useTranslations } from "next-intl"
 import { Button } from "@/components/ui/button"
 import {
@@ -27,7 +26,6 @@ export function LanguageSelector() {
   const locale = useLocale() as Locale
   const router = useRouter()
   const pathname = usePathname()
-  const searchParams = useSearchParams()
   const [isPending, startTransition] = useTransition()
 
   const current = LANGUAGES.find((l) => l.code === locale) ?? LANGUAGES[0]
@@ -35,8 +33,11 @@ export function LanguageSelector() {
   const switchTo = (next: Locale) => {
     if (next === locale) return
 
-    const qs = searchParams.toString()
-    const target = qs ? `${pathname}?${qs}` : pathname
+    // Read the query string at click time (client-only) so this component
+    // doesn't need useSearchParams, which would force a Suspense/CSR bailout
+    // and opt static pages out of prerendering.
+    const qs = typeof window !== "undefined" ? window.location.search : ""
+    const target = qs ? `${pathname}${qs}` : pathname
 
     startTransition(() => {
       router.replace(target, { locale: next, scroll: false })

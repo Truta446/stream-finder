@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { setRequestLocale } from "next-intl/server"
 import { LegalLayout } from "@/components/stream-finder/legal-layout"
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://reelhuntr.com"
@@ -39,6 +40,7 @@ export default async function PrivacyPolicyPage({
   params: Promise<{ locale: string }>
 }) {
   const { locale } = await params
+  setRequestLocale(locale)
   return (
     <LegalLayout title="Privacy Policy" lastUpdated="May 18, 2025" locale={locale}>
       <Section title="1. Who We Are">

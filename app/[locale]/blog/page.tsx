@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import Link from "next/link"
+import { setRequestLocale } from "next-intl/server"
 import { routing } from "@/i18n/routing"
 import { posts, getTranslation, formatDate } from "@/lib/blog"
 
@@ -69,6 +70,7 @@ const READ_TIME_LABEL: Record<string, string> = {
 
 export default async function BlogPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
+  setRequestLocale(locale)
   const prefix = locale === "en" ? "" : `/${locale}`
 
   return (
