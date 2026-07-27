@@ -61,6 +61,14 @@ const nextConfig = {
   },
   images: {
     formats: ["image/avif", "image/webp"],
+    // 75 is the default; 65 is opted in for the decorative detail-page backdrop,
+    // which is the LCP element and sits under a gradient overlay, so the extra
+    // bytes buy nothing visible. Next.js rejects any quality not listed here.
+    qualities: [65, 75],
+    // Every source we optimize is a TMDB w500 poster / w1280 backdrop or a small
+    // provider icon, so the default 2048 and 3840 variants could only ever be
+    // upscales — dropping them keeps the generated srcsets honest.
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920],
     remotePatterns: [
       { protocol: "https", hostname: "image.tmdb.org", pathname: "/t/p/**" },
       { protocol: "https", hostname: "images.justwatch.com", pathname: "/**" },

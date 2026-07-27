@@ -13,11 +13,17 @@ import type { Title } from "@/lib/api/types"
 
 interface MovieCardProps {
   title: Title
-  /** Mark above-the-fold cards so Next.js gives the poster eager + high fetchpriority. */
+  /** Mark above-the-fold cards so Next.js loads the poster eagerly and preloads it. */
   priority?: boolean
+  /**
+   * Only the single most likely LCP element should get fetchpriority="high" —
+   * handing it to every card in the first row makes them compete for bandwidth
+   * and pushes the actual LCP later. Defaults to "auto" for priority cards.
+   */
+  fetchPriority?: "high" | "auto"
 }
 
-function MovieCardImpl({ title, priority = false }: MovieCardProps) {
+function MovieCardImpl({ title, priority = false, fetchPriority = "auto" }: MovieCardProps) {
   const locale = useLocale()
   const t = useTranslations()
   const href = buildTitleUrl(locale, title.type as "movie" | "tv", title.title, title.id)
@@ -33,8 +39,7 @@ function MovieCardImpl({ title, priority = false }: MovieCardProps) {
             alt={`${title.title} poster`}
             fill
             priority={priority}
-            loading={priority ? "eager" : "lazy"}
-            fetchPriority={priority ? "high" : "auto"}
+            fetchPriority={fetchPriority}
             className="object-cover transition-transform duration-300 group-hover:scale-105"
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 16vw"
           />

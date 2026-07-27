@@ -57,9 +57,9 @@ export function HomeShell() {
               </p>
               <div className="max-w-2xl mx-auto mb-8">
                 <SearchBar value="" onChange={NOOP} size="large" placeholder={t("search.placeholder")} />
-                <p className="text-xs text-muted-foreground/70 mt-3">
+                <p className="text-xs text-subtle-foreground mt-3">
                   {t("hero.keyboardHintPre")}{" "}
-                  <kbd className="px-1.5 py-0.5 rounded bg-secondary border border-border/50 font-mono text-[10px]">
+                  <kbd className="px-1.5 py-0.5 rounded bg-secondary border border-border/50 font-mono text-[10px] text-muted-foreground">
                     /
                   </kbd>{" "}
                   {t("hero.keyboardHintPost")}

@@ -89,6 +89,7 @@ export function TitleDetails({ title, region, isLoading, onClose }: TitleDetails
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 896px"
               priority
+              quality={65}
               fallbackIconSize={48}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
@@ -209,7 +210,7 @@ export function TitleDetails({ title, region, isLoading, onClose }: TitleDetails
               ) : !hasProviders ? (
                 <div className="text-center py-10 bg-secondary/30 rounded-xl border border-border/50 px-4">
                   <p className="text-muted-foreground text-base mb-2">{t("details.noData")}</p>
-                  <p className="text-sm text-muted-foreground/70 mb-4">
+                  <p className="text-sm text-subtle-foreground mb-4">
                     {t("details.noDataDesc", { region: selectedRegion?.name ?? region })}
                   </p>
                   <a

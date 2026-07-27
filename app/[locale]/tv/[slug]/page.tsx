@@ -115,6 +115,7 @@ export default async function TvPage({
           className="object-cover"
           sizes="100vw"
           priority
+          quality={65}
           fallbackIconSize={64}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
@@ -122,6 +123,11 @@ export default async function TvPage({
 
       <div className="container mx-auto px-4 pb-16">
         <div className="flex flex-col sm:flex-row gap-6 -mt-24 sm:-mt-28 relative">
+          {/*
+            The full-width backdrop above is the LCP candidate on every
+            breakpoint, so it keeps fetchpriority="high" (PosterImage defaults to
+            it for priority images). This poster only needs to be eager.
+          */}
           <div className="relative h-44 w-28 sm:h-56 sm:w-36 rounded-xl overflow-hidden shadow-2xl flex-shrink-0 mx-auto sm:mx-0 ring-2 ring-card bg-secondary">
             <PosterImage
               src={title.poster}
@@ -130,6 +136,7 @@ export default async function TvPage({
               className="object-cover"
               sizes="144px"
               priority
+              fetchPriority="auto"
               fallbackIconSize={32}
             />
           </div>

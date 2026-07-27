@@ -80,7 +80,14 @@ type TmdbProviderRegion = {
   free?: TmdbProviderEntry[]
 }
 
-function img(path: string | null | undefined, size: "w500" | "original" = "w500") {
+/**
+ * TMDB source size. Everything is re-encoded by the Next.js image optimizer, so
+ * the only thing this controls is how much we make the optimizer download and
+ * decode. `original` backdrops are routinely 3840px wide / 1-3 MB while the
+ * widest slot we render is a 100vw strip — `w1280` is already more pixels than
+ * any breakpoint needs and cuts the optimizer's fetch dramatically.
+ */
+function img(path: string | null | undefined, size: "w500" | "w1280" = "w500") {
   return path ? `${TMDB_IMG}/${size}${path}` : "/placeholder.jpg"
 }
 
@@ -97,7 +104,7 @@ function toTitleFromSearch(item: TmdbSearchItem, fallbackType: "movie" | "tv"): 
     year: Number.isFinite(year) ? year : 0,
     type,
     poster: img(item.poster_path),
-    backdrop: img(item.backdrop_path, "original"),
+    backdrop: img(item.backdrop_path, "w1280"),
     description: item.overview ?? "",
     rating: typeof item.vote_average === "number" ? Number(item.vote_average.toFixed(1)) : 0,
     genres: [],

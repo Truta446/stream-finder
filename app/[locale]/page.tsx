@@ -285,9 +285,9 @@ function ReelHuntrInner() {
                       placeholder={t("search.placeholder")}
                       inputRef={heroInputRef}
                     />
-                    <p className="text-xs text-muted-foreground/70 mt-3">
+                    <p className="text-xs text-subtle-foreground mt-3">
                       {t("hero.keyboardHintPre")}{" "}
-                      <kbd className="px-1.5 py-0.5 rounded bg-secondary border border-border/50 font-mono text-[10px]">
+                      <kbd className="px-1.5 py-0.5 rounded bg-secondary border border-border/50 font-mono text-[10px] text-muted-foreground">
                         /
                       </kbd>{" "}
                       {t("hero.keyboardHintPost")}
@@ -340,6 +340,7 @@ function ReelHuntrInner() {
                             key={title.id}
                             title={title}
                             priority={i < 5}
+                            fetchPriority={i === 0 ? "high" : "auto"}
                           />
                         )
                         if (i === 10) {
@@ -370,11 +371,11 @@ function ReelHuntrInner() {
                             : t("popular.loadMore")}
                         </Button>
                       ) : (
-                        <p className="text-xs text-muted-foreground/60">
+                        <p className="text-xs text-subtle-foreground">
                           {t("popular.endOfResults")}
                         </p>
                       )}
-                      <p className="text-xs text-muted-foreground/60">
+                      <p className="text-xs text-subtle-foreground">
                         {t("popular.showing", { count: popular.length })}
                         {popularSource && (
                           <span className="ml-2 uppercase tracking-wider">
@@ -416,7 +417,7 @@ function ReelHuntrInner() {
                         </span>
                       )}
                       {searchQ.data?.source && (
-                        <span className="ml-2 text-xs uppercase tracking-wider opacity-70">
+                        <span className="ml-2 text-xs uppercase tracking-wider text-subtle-foreground">
                           {t("popular.via", { source: searchQ.data.source })}
                         </span>
                       )}
@@ -451,6 +452,7 @@ function ReelHuntrInner() {
                       key={title.id}
                       title={title}
                       priority={i < 5}
+                      fetchPriority={i === 0 ? "high" : "auto"}
                     />
                   ))}
                 </div>
@@ -471,7 +473,7 @@ function ReelHuntrInner() {
       <footer className="py-8 border-t border-border/50">
         <div className="container mx-auto px-4 text-center">
           <p className="text-sm text-muted-foreground">{t("footer.tagline")}</p>
-          <p className="text-xs text-muted-foreground/70 mt-2">{t("footer.attribution")}</p>
+          <p className="text-xs text-subtle-foreground mt-2">{t("footer.attribution")}</p>
           <nav className="mt-4 flex items-center justify-center gap-x-5 gap-y-2 flex-wrap">
             <FooterLink href="/blog" label={t("footer.blog")} />
             <FooterLink href="/privacy-policy" label={t("footer.privacy")} />
@@ -488,7 +490,7 @@ function ReelHuntrInner() {
 
 function FooterLink({ href, label }: { href: string; label: string }) {
   return (
-    <Link href={href} className="text-xs text-muted-foreground/60 hover:text-muted-foreground transition-colors">
+    <Link href={href} className="text-xs text-subtle-foreground hover:text-muted-foreground transition-colors">
       {label}
     </Link>
   )

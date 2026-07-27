@@ -17,6 +17,14 @@
   --secondary-foreground: oklch(0.98 0 0);
   --muted: oklch(0.22 0.01 250);
   --muted-foreground: oklch(0.65 0 0);
+  /*
+   * De-emphasised text (footnotes, footer links, "showing N titles"). Dimmer
+   * than --muted-foreground but still ~5.1:1 on --background and ~4.8:1 on
+   * --card, so it clears WCAG AA for small text. Use this token instead of an
+   * opacity modifier like `text-muted-foreground/60` — those composite down to
+   * ~2.9:1 and fail the audit.
+   */
+  --subtle-foreground: oklch(0.6 0 0);
   --accent: oklch(0.7 0.2 150);
   --accent-foreground: oklch(0.13 0.01 250);
   --destructive: oklch(0.577 0.245 27.325);
@@ -45,6 +53,7 @@
   --secondary-foreground: oklch(0.98 0 0);
   --muted: oklch(0.22 0.01 250);
   --muted-foreground: oklch(0.65 0 0);
+  --subtle-foreground: oklch(0.6 0 0);
   --accent: oklch(0.7 0.2 150);
   --accent-foreground: oklch(0.13 0.01 250);
   --destructive: oklch(0.577 0.245 27.325);
@@ -61,7 +70,13 @@
 
 @theme inline {
   --font-sans: 'Geist', 'Geist Fallback';
-  --font-mono: 'Geist Mono', 'Geist Mono Fallback';
+  /*
+   * System monospace stack. `font-mono` is only used for a keycap and the
+   * language short codes, which is not worth a 23 KiB webfont sitting in the
+   * critical request chain (html -> css -> woff2).
+   */
+  --font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas,
+    'Liberation Mono', monospace;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -74,6 +89,7 @@
   --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
+  --color-subtle-foreground: var(--subtle-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);

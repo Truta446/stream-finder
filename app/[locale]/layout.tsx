@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
+import { Geist } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import Script from "next/script"
@@ -11,8 +11,11 @@ import { ADS_ENABLED } from "@/lib/ads"
 import { routing } from "@/i18n/routing"
 import "../globals.css"
 
+// Geist Mono was dropped on purpose: `font-mono` is only used for a keycap and
+// the language short codes, and its woff2 sat in the critical request chain
+// (html -> font css -> woff2) for ~23 KiB. `--font-mono` in globals.css now
+// resolves to the system monospace stack instead.
 const geist = Geist({ subsets: ["latin"], variable: "--font-geist", display: "swap" })
-const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono", display: "swap", preload: false })
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://reelhuntr.com"
 const SITE_NAME = "ReelHuntr"
@@ -153,11 +156,15 @@ export default async function LocaleLayout({
   }
 
   return (
-    <html lang={locale} className={`dark ${geist.variable} ${geistMono.variable}`}>
+    <html lang={locale} className={`dark ${geist.variable}`}>
       <head>
-        <link rel="preconnect" href="https://image.tmdb.org" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://images.justwatch.com" crossOrigin="anonymous" />
-        <link rel="dns-prefetch" href="https://api.themoviedb.org" />
+        {/*
+          No preconnect to image.tmdb.org / images.justwatch.com / api.themoviedb.org
+          on purpose: posters go through the Next.js image optimizer (/_next/image)
+          and TMDB is called from our own route handlers, so the browser never
+          opens a connection to those origins. Preconnecting to them only burns
+          two unused TLS handshakes on mobile.
+        */}
         {ADS_ENABLED && (
           <>
             <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossOrigin="anonymous" />

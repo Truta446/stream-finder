@@ -35,10 +35,19 @@ export function PosterImage({
   onLoad,
   onError,
   alt,
+  priority,
+  fetchPriority,
   ...props
 }: PosterImageProps) {
   const [loaded, setLoaded] = useState(false)
   const [failed, setFailed] = useState(false)
+
+  // `priority` makes next/image emit a <link rel="preload">, but it does *not*
+  // put fetchpriority="high" on it — Lighthouse's "LCP request discovery" audit
+  // fails without it. Default it here so every priority poster gets it, while
+  // still letting a caller pass fetchPriority="auto" for the non-LCP images of
+  // an eagerly loaded row (only one image per view should be "high").
+  const resolvedFetchPriority = fetchPriority ?? (priority ? "high" : undefined)
 
   if (failed) {
     return (
@@ -63,6 +72,8 @@ export function PosterImage({
       <Image
         {...props}
         alt={alt}
+        priority={priority}
+        fetchPriority={resolvedFetchPriority}
         placeholder="blur"
         blurDataURL={POSTER_BLUR}
         onLoad={(e) => {
