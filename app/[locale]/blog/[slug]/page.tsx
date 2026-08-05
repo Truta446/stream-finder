@@ -3,7 +3,7 @@ import { notFound } from "next/navigation"
 import Link from "next/link"
 import { setRequestLocale } from "next-intl/server"
 import { routing } from "@/i18n/routing"
-import { posts, getPost, getTranslation, formatDate } from "@/lib/blog"
+import { posts, getPost, getTranslation, getAuthor, formatDate } from "@/lib/blog"
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://reelhuntr.com"
 
@@ -22,6 +22,7 @@ export async function generateMetadata({
   const post = getPost(slug)
   if (!post) return {}
   const t = getTranslation(post, locale)
+  const author = getAuthor(post)
   const canonical = locale === "en" ? `/blog/${slug}` : `/${locale}/blog/${slug}`
   return {
     title: `${t.title} · ReelHuntr`,
@@ -41,8 +42,8 @@ export async function generateMetadata({
       title: t.title,
       description: t.description,
       publishedTime: post.date,
-      modifiedTime: post.date,
-      authors: ["ReelHuntr"],
+      modifiedTime: post.updated ?? post.date,
+      authors: [author.name],
       section: post.category,
     },
     twitter: {
@@ -63,6 +64,18 @@ const READ_TIME_LABEL: Record<string, string> = {
   en: "min read",
   es: "min de lectura",
   "pt-BR": "min de leitura",
+}
+
+const BY_LABEL: Record<string, string> = {
+  en: "By",
+  es: "Por",
+  "pt-BR": "Por",
+}
+
+const UPDATED_LABEL: Record<string, string> = {
+  en: "Updated on",
+  es: "Actualizado el",
+  "pt-BR": "Atualizado em",
 }
 
 const CTA_HEADING: Record<string, string> = {
@@ -94,6 +107,7 @@ export default async function BlogPostPage({
   if (!post) notFound()
 
   const t = getTranslation(post, locale)
+  const author = getAuthor(post)
   const prefix = locale === "en" ? "" : `/${locale}`
   const canonical = `${SITE_URL}${prefix}/blog/${slug}`
 
@@ -105,10 +119,10 @@ export default async function BlogPostPage({
         headline: t.title,
         description: t.description,
         datePublished: post.date,
-        dateModified: post.date,
+        dateModified: post.updated ?? post.date,
         inLanguage: locale,
         articleSection: post.category,
-        author: { "@type": "Organization", name: "ReelHuntr", url: SITE_URL },
+        author: { "@type": "Person", name: author.name, url: `${SITE_URL}${prefix}/about` },
         publisher: {
           "@type": "Organization",
           name: "ReelHuntr",
@@ -151,6 +165,21 @@ export default async function BlogPostPage({
           <div className="text-5xl mb-4">{post.emoji}</div>
           <h1 className="text-3xl font-bold text-foreground leading-tight">{t.title}</h1>
           <p className="text-muted-foreground mt-3 text-lg leading-relaxed">{t.description}</p>
+          <p className="text-sm text-muted-foreground mt-4">
+            {BY_LABEL[locale] ?? BY_LABEL.en}{" "}
+            <Link
+              href={`${prefix}/about`}
+              className="font-medium text-foreground hover:text-primary transition-colors"
+            >
+              {author.name}
+            </Link>
+            <span className="text-subtle-foreground"> · {author.role[locale as "en" | "es" | "pt-BR"] ?? author.role.en}</span>
+            {post.updated && post.updated !== post.date && (
+              <span className="text-subtle-foreground">
+                {" "}· {UPDATED_LABEL[locale] ?? UPDATED_LABEL.en} {formatDate(post.updated, locale)}
+              </span>
+            )}
+          </p>
         </div>
 
         <article

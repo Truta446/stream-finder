@@ -8,6 +8,22 @@ export interface StreamingProvider {
   url: string
 }
 
+export interface CastMember {
+  name: string
+  character: string
+  /** full profile image URL, or null when TMDB has no photo */
+  profile: string | null
+}
+
+export interface RelatedTitle {
+  id: string
+  title: string
+  year: number
+  type: "movie" | "tv"
+  poster: string
+  rating: number
+}
+
 export interface Title {
   id: string
   title: string
@@ -23,6 +39,12 @@ export interface Title {
   providers: Record<string, StreamingProvider[]>
   /** YouTube video id for a trailer (TMDB videos endpoint). */
   trailerKey?: string
+  /** top-billed cast (details endpoint only) */
+  cast?: CastMember[]
+  /** directors (movies) or creators (tv) — details endpoint only */
+  directors?: string[]
+  /** TMDB recommendations (details endpoint only) */
+  related?: RelatedTitle[]
   /** which data source produced this record (debug + UI badge) */
   source?: "tmdb" | "omdb" | "mock"
 }

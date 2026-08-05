@@ -131,7 +131,7 @@ function ReelHuntrInner() {
     }
   }, [popularQ.error, popularQ, t])
 
-  const rawResults = searchQ.data?.data ?? []
+  const rawResults = useMemo(() => searchQ.data?.data ?? [], [searchQ.data])
   const rawPopular = useMemo(() => {
     const out: Title[] = []
     const seen = new Set<string>()
@@ -475,6 +475,7 @@ function ReelHuntrInner() {
           <p className="text-sm text-muted-foreground">{t("footer.tagline")}</p>
           <p className="text-xs text-subtle-foreground mt-2">{t("footer.attribution")}</p>
           <nav className="mt-4 flex items-center justify-center gap-x-5 gap-y-2 flex-wrap">
+            <FooterLink href="/about" label={t("footer.about")} />
             <FooterLink href="/blog" label={t("footer.blog")} />
             <FooterLink href="/privacy-policy" label={t("footer.privacy")} />
             <FooterLink href="/terms" label={t("footer.terms")} />

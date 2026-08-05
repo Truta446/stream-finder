@@ -1,5 +1,5 @@
 import "server-only"
-import type { ProviderType, StreamingProvider, Title } from "./types"
+import type { CastMember, ProviderType, RelatedTitle, StreamingProvider, Title } from "./types"
 import { REGIONS } from "./types"
 import { providerDeepLink } from "./provider-links"
 
@@ -61,13 +61,23 @@ type TmdbVideo = {
   published_at?: string
 }
 
+type TmdbCredit = {
+  name?: string
+  character?: string
+  job?: string
+  profile_path?: string | null
+}
+
 type TmdbDetails = TmdbSearchItem & {
   genres?: Array<{ id: number; name: string }>
   runtime?: number
   number_of_seasons?: number
   episode_run_time?: number[]
+  created_by?: Array<{ name?: string }>
   "watch/providers"?: { results: Record<string, TmdbProviderRegion> }
   videos?: { results: TmdbVideo[] }
+  credits?: { cast?: TmdbCredit[]; crew?: TmdbCredit[] }
+  recommendations?: { results?: TmdbSearchItem[] }
 }
 
 type TmdbProviderEntry = { provider_id: number; provider_name: string; logo_path: string }
@@ -274,9 +284,39 @@ function pickTrailerKey(videos: TmdbVideo[] | undefined): string | undefined {
   return [...youtube].sort((a, b) => rank(b) - rank(a))[0]?.key
 }
 
+function mapCast(credits: TmdbDetails["credits"]): CastMember[] {
+  return (credits?.cast ?? [])
+    .filter((c) => !!c.name)
+    .slice(0, 10)
+    .map((c) => ({
+      name: c.name as string,
+      character: c.character ?? "",
+      profile: c.profile_path ? `${TMDB_IMG}/w185${c.profile_path}` : null,
+    }))
+}
+
+function mapDirectors(data: TmdbDetails, type: "movie" | "tv"): string[] {
+  if (type === "tv") {
+    return (data.created_by ?? []).map((c) => c.name).filter((n): n is string => !!n).slice(0, 4)
+  }
+  return (data.credits?.crew ?? [])
+    .filter((c) => c.job === "Director" && !!c.name)
+    .map((c) => c.name as string)
+    .slice(0, 4)
+}
+
+function mapRelated(results: TmdbSearchItem[] | undefined, fallbackType: "movie" | "tv"): RelatedTitle[] {
+  return (results ?? [])
+    .filter((r) => !!r.poster_path)
+    .map((r) => toTitleFromSearch(r, fallbackType))
+    .filter((t): t is Title => !!t)
+    .slice(0, 8)
+    .map((t) => ({ id: t.id, title: t.title, year: t.year, type: t.type, poster: t.poster, rating: t.rating }))
+}
+
 export async function tmdbDetails(type: "movie" | "tv", id: string | number): Promise<Title | null> {
   const data = await tmdbFetch<TmdbDetails>(`/${type}/${id}`, {
-    append_to_response: "watch/providers,videos",
+    append_to_response: "watch/providers,videos,credits,recommendations",
     language: "en-US",
   })
   const base = toTitleFromSearch(data, type)
@@ -292,6 +332,9 @@ export async function tmdbDetails(type: "movie" | "tv", id: string | number): Pr
   }
   base.providers = flattenProviders(data["watch/providers"]?.results, base.title)
   base.trailerKey = pickTrailerKey(data.videos?.results)
+  base.cast = mapCast(data.credits)
+  base.directors = mapDirectors(data, type)
+  base.related = mapRelated(data.recommendations?.results, type)
   return base
 }
 

@@ -9,6 +9,14 @@ import { Badge } from "@/components/ui/badge"
 import { PosterImage } from "@/components/ui/poster-image"
 import { ProvidersSection } from "@/components/stream-finder/providers-section"
 import { LanguageSelector } from "@/components/stream-finder/language-selector"
+import { CastSection, FaqSection, RelatedSection } from "@/components/stream-finder/title-extras"
+import {
+  buildTitleFaq,
+  defaultRegionForLocale,
+  formatCheckedDate,
+  getTitleStrings,
+} from "@/lib/title-content"
+import { isSupportedRegion } from "@/lib/api/types"
 
 type Params = Promise<{ locale: string; slug: string }>
 type SearchParams = Promise<{ region?: string }>
@@ -72,6 +80,15 @@ export default async function MoviePage({
   const t = await getTranslations({ locale })
   const localePrefix = locale === "en" ? "" : `/${locale}`
 
+  const faqRegion =
+    region && isSupportedRegion(region) ? region.toUpperCase() : defaultRegionForLocale(locale)
+  const checkedDate = formatCheckedDate(locale)
+  const strings = getTitleStrings(locale)
+  const faq = buildTitleFaq(title, faqRegion, locale, checkedDate)
+  const cast = title.cast ?? []
+  const directors = title.directors ?? []
+  const related = title.related ?? []
+
   const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://reelhuntr.com"
   const canonical = `${SITE_URL}${localePrefix}/movie/${slug}`
   const jsonLd = {
@@ -85,7 +102,25 @@ export default async function MoviePage({
         ...(title.description ? { description: title.description } : {}),
         ...(title.year ? { datePublished: String(title.year) } : {}),
         ...(title.genres.length > 0 ? { genre: title.genres } : {}),
+        ...(directors.length > 0
+          ? { director: directors.map((name) => ({ "@type": "Person", name })) }
+          : {}),
+        ...(cast.length > 0
+          ? { actor: cast.slice(0, 5).map((c) => ({ "@type": "Person", name: c.name })) }
+          : {}),
       },
+      ...(faq.length > 0
+        ? [
+            {
+              "@type": "FAQPage",
+              mainEntity: faq.map((item) => ({
+                "@type": "Question",
+                name: item.question,
+                acceptedAnswer: { "@type": "Answer", text: item.answer },
+              })),
+            },
+          ]
+        : []),
       {
         "@type": "BreadcrumbList",
         itemListElement: [
@@ -189,6 +224,13 @@ export default async function MoviePage({
               </div>
             )}
 
+            {directors.length > 0 && (
+              <p className="text-sm text-muted-foreground mb-3">
+                <span className="font-medium text-foreground">{strings.directedBy}</span>{" "}
+                {directors.join(", ")}
+              </p>
+            )}
+
             <p className="text-muted-foreground leading-relaxed max-w-2xl">
               {title.description || t("details.noDescription")}
             </p>
@@ -216,6 +258,16 @@ export default async function MoviePage({
             initialRegion={region?.toUpperCase()}
           />
         </div>
+
+        <CastSection heading={strings.sectionCast} cast={cast} />
+
+        <FaqSection
+          heading={strings.sectionFaq}
+          faq={faq}
+          lastCheckedNote={strings.lastChecked(checkedDate)}
+        />
+
+        <RelatedSection heading={strings.sectionSimilar} related={related} locale={locale} />
       </div>
     </main>
   )

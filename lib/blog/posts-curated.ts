@@ -1,21 +1,6 @@
-export type Locale = "en" | "es" | "pt-BR"
+import type { BlogPost } from "./types"
 
-export type BlogPostTranslation = {
-  title: string
-  description: string
-  html: string
-}
-
-export type BlogPost = {
-  slug: string
-  date: string
-  readTime: number
-  category: string
-  emoji: string
-  translations: Record<Locale, BlogPostTranslation>
-}
-
-export const posts: BlogPost[] = [
+export const curatedPosts: BlogPost[] = [
   {
     slug: "streaming-fragmentation-guide",
     date: "2026-05-20",
@@ -506,18 +491,3 @@ export const posts: BlogPost[] = [
     },
   },
 ]
-
-export function getPost(slug: string): BlogPost | undefined {
-  return posts.find((p) => p.slug === slug)
-}
-
-export function getTranslation(post: BlogPost, locale: string): BlogPostTranslation {
-  return post.translations[locale as Locale] ?? post.translations.en
-}
-
-export function formatDate(iso: string, locale: string): string {
-  return new Date(iso).toLocaleDateString(
-    locale === "pt-BR" ? "pt-BR" : locale === "es" ? "es-ES" : "en-US",
-    { year: "numeric", month: "long", day: "numeric" },
-  )
-}
