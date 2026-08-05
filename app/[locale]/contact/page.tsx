@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import Link from "next/link"
 import { Mail, ExternalLink } from "lucide-react"
 import { setRequestLocale } from "next-intl/server"
 import { LegalLayout } from "@/components/stream-finder/legal-layout"
@@ -151,12 +152,12 @@ function TopicCard({ title, description }: { title: string; description: string 
 
 function PageLink({ href, label }: { href: string; label: string }) {
   return (
-    <a
+    <Link
       href={href}
       className="inline-flex items-center gap-1.5 text-sm text-primary underline underline-offset-2 hover:text-primary/80 transition-colors"
     >
       {label}
       <ExternalLink className="h-3.5 w-3.5" />
-    </a>
+    </Link>
   )
 }

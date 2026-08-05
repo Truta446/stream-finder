@@ -1,3 +1,4 @@
+import Link from "next/link"
 import type { Metadata } from "next"
 import { setRequestLocale } from "next-intl/server"
 import { LegalLayout } from "@/components/stream-finder/legal-layout"
@@ -143,7 +144,7 @@ export default async function TermsPage({
 
       <Section title="10. Contact">
         <p>
-          Questions about these terms? Visit our <a href="/contact">Contact page</a>.
+          Questions about these terms? Visit our <Link href="/contact">Contact page</Link>.
         </p>
       </Section>
     </LegalLayout>

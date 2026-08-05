@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { ExternalLink, Loader2 } from "lucide-react"
+import { ExternalLink } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { RegionSelector } from "./region-selector"
 import { ProviderCard } from "./provider-card"

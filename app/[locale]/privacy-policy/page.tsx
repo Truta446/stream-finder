@@ -1,3 +1,4 @@
+import Link from "next/link"
 import type { Metadata } from "next"
 import { setRequestLocale } from "next-intl/server"
 import { LegalLayout } from "@/components/stream-finder/legal-layout"
@@ -162,7 +163,7 @@ export default async function PrivacyPolicyPage({
         </p>
         <p>
           For any privacy-related enquiry, please contact us at the address listed on our{" "}
-          <a href="/contact">Contact page</a>.
+          <Link href="/contact">Contact page</Link>.
         </p>
       </Section>
 

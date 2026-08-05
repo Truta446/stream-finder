@@ -47,6 +47,10 @@ export function useRegion(): readonly [string, (next: string) => void] {
 
   useEffect(() => {
     const detected = detectRegion()
+    // setState-in-effect is deliberate here: the first render must match the
+    // server markup (DEFAULT_REGION); the real region can only be known after
+    // mount, so this one-time post-hydration correction is the whole point.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (detected !== region) setRegion(detected)
     // run once on mount
     // eslint-disable-next-line react-hooks/exhaustive-deps
