@@ -60,21 +60,22 @@ const nextConfig = {
     optimizePackageImports: ["lucide-react", "@radix-ui/react-dropdown-menu", "@radix-ui/react-dialog"],
   },
   images: {
-    formats: ["image/avif", "image/webp"],
-    // 75 is the default; 65 is opted in for the decorative detail-page backdrop,
-    // which is the LCP element and sits under a gradient overlay, so the extra
-    // bytes buy nothing visible. Next.js rejects any quality not listed here.
-    qualities: [65, 75],
-    // Every source we optimize is a TMDB w500 poster / w1280 backdrop or a small
-    // provider icon, so the default 2048 and 3840 variants could only ever be
-    // upscales — dropping them keeps the generated srcsets honest.
+    // Images are served straight from the origin CDNs (TMDB / JustWatch) via a
+    // custom loader instead of Vercel's Image Optimization. The optimizer bills
+    // one transformation per unique source × width × quality, and blowing past
+    // the Hobby quota makes `/_next/image` return 402 — which breaks every
+    // poster on the site at once. TMDB already serves fixed size buckets, so
+    // the loader picks the right bucket per breakpoint and costs us nothing.
+    loader: "custom",
+    loaderFile: "./lib/utils/image-loader.ts",
+    // Kept so the srcset widths the loader receives stay sane; the 2048/3840
+    // defaults could only ever ask for upscales of a w500/w1280 source.
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],
     remotePatterns: [
       { protocol: "https", hostname: "image.tmdb.org", pathname: "/t/p/**" },
       { protocol: "https", hostname: "images.justwatch.com", pathname: "/**" },
       { protocol: "https", hostname: "m.media-amazon.com", pathname: "/**" },
     ],
-    minimumCacheTTL: 60 * 60 * 24,
   },
   async headers() {
     return [
