@@ -1,7 +1,5 @@
 import type { Metadata, Viewport } from "next"
 import { Geist } from "next/font/google"
-import { Analytics } from "@vercel/analytics/next"
-import { SpeedInsights } from "@vercel/speed-insights/next"
 import Script from "next/script"
 import { NextIntlClientProvider } from "next-intl"
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server"
@@ -194,8 +192,6 @@ export default async function LocaleLayout({
           <QueryProvider>{children}</QueryProvider>
         </NextIntlClientProvider>
         <Toaster position="bottom-right" richColors closeButton />
-        {process.env.NODE_ENV === "production" && <Analytics />}
-        {process.env.NODE_ENV === "production" && <SpeedInsights />}
       </body>
     </html>
   )
